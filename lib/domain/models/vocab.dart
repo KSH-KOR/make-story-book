@@ -11,7 +11,7 @@ class Vocab {
   final String prompt;
   final String vocabId;
   final String? vocabImgRrl;
-  final String docId;
+  final String? docId;
 
   Vocab({
     required this.vocabCategory,
@@ -19,7 +19,7 @@ class Vocab {
     required this.prompt,
     required this.vocabId,
     required this.vocabImgRrl,
-    required this.docId,
+    this.docId,
   });
 
   factory Vocab.fromSnapshot(
@@ -32,5 +32,16 @@ class Vocab {
         vocabId: snapshot.data()[meaningFieldName].maybeEmpty(),
         vocabImgRrl: snapshot.data()[meaningFieldName],
         docId: snapshot.id,
+      );
+
+  factory Vocab.fromMap(
+          Map<String, dynamic> map) =>
+      Vocab(
+        meaning: map[meaningFieldName].maybeEmpty(),
+        prompt: map[meaningFieldName].maybeEmpty(),
+        vocabCategory:
+            map[meaningFieldName].maybeEmpty().toVocabCategory(),
+        vocabId: map[meaningFieldName].maybeEmpty(),
+        vocabImgRrl: map[meaningFieldName],
       );
 }
