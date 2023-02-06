@@ -1,6 +1,8 @@
-import 'package:my_english_story/service/story_book/story_book.dart';
+import 'package:my_english_story/domain/models/story_book.dart';
+
+import '../../domain/models/study_page.dart';
 
 abstract class StoryBookProvider{
   Stream<Iterable<StoryBook>> getStoryBooksByLevel({int level = 1});
-  Stream<Iterable<StoryBook>> getStudyPagesByPageOrder({required String docId});
+  Stream<Iterable<StudyPage>> getStudyPagesByPageOrder({required String docId});
 }
