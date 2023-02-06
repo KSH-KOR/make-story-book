@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 
-import '../../models/auth_user.dart';
+import 'auth_user.dart';
 import 'firebase_auth_provider.dart';
 import 'auth_provider.dart';
 
