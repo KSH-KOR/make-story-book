@@ -11,9 +11,15 @@ import '../../common/constants/firestore_fieldnames/study_page_firestore_fieldna
 class FirebaseStoryBookProvider extends StoryBookProvider {
   final _storyBookCollection =
       FirebaseFirestore.instance.collection(storyBookCollectionName);
+  
   CollectionReference<Map<String, dynamic>> _getStudyCollection(
           {required String docId}) =>
       _storyBookCollection.doc(docId).collection(studyCollectionName);
+  
+  CollectionReference<Map<String, dynamic>> _getQuizCollection(
+      {required String docId}) =>
+  _storyBookCollection.doc(docId).collection(quizCollectionName);
+
   @override
   Stream<Iterable<StoryBook>> getStoryBooksByLevel({int level = 1}) =>
       _storyBookCollection
@@ -38,4 +44,6 @@ class FirebaseStoryBookProvider extends StoryBookProvider {
           .map(((event) => event.docs.map(
                 (snapshot) => StudyPage.fromSnapshot(snapshot),
               )));
+
+  
 }

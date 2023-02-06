@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:my_english_story/service/story_book/firebase_story_book_provider.dart';
 
 class TestFuture extends StatelessWidget {
@@ -14,9 +11,9 @@ class TestFuture extends StatelessWidget {
       builder: (context, snapshot) {
         switch(snapshot.connectionState){
           case ConnectionState.done:
-            return Text("done");
+            return const Text("done");
           default:
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
         }
     },);
   }
@@ -39,7 +36,6 @@ class TestStream extends StatelessWidget {
                 ? ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-
                       final pages = FirebaseStoryBookProvider().getStudyPagesByPageOrder(docId: snapshot.data!.first.docId);
                       return StreamBuilder(
                         stream: pages,
@@ -48,7 +44,7 @@ class TestStream extends StatelessWidget {
                             case ConnectionState.waiting:
                             case ConnectionState.active:
                               return snapshot.data != null
-                                  ? Text(snapshot.data!.first.vocabList.first.meaning)
+                                  ? Text(snapshot.data!.first.vocabList.first.vocabCategory.toString())
                                   : Container();
                             default:
                               return const CircularProgressIndicator();

@@ -26,23 +26,23 @@ class Vocab {
   factory Vocab.fromSnapshot(
           QueryDocumentSnapshot<Map<String, dynamic>> snapshot) =>
       Vocab(
-        meaning: MaybeEmpty(snapshot.data()[meaningFieldName]).maybeEmpty(),
-        prompt: MaybeEmpty(snapshot.data()[meaningFieldName]).maybeEmpty(),
+        meaning: MaybeEmpty(snapshot.data()[vocabMeaningFieldName]).maybeEmpty(),
+        prompt: MaybeEmpty(snapshot.data()[vocabPromptFieldName]).maybeEmpty(),
         vocabCategory:
-            MaybeEmpty(snapshot.data()[meaningFieldName]).maybeEmpty().toVocabCategory(),
-        vocabId: MaybeEmpty(snapshot.data()[meaningFieldName]).maybeEmpty(),
-        vocabImgRrl: snapshot.data()[meaningFieldName],
+            ToVocabCategory(MaybeEmpty(snapshot.data()[vocabCategoryFieldName]).maybeEmpty()).toVocabCategory(),
+        vocabId: MaybeEmpty(snapshot.data()[vocabIdFieldName]).maybeEmpty(),
+        vocabImgRrl: snapshot.data()[vocabImageUrlFieldName],
         docId: snapshot.id,
       );
 
   factory Vocab.fromMap(
           Map<String, dynamic> map) =>
       Vocab(
-        meaning: MaybeEmpty(map[meaningFieldName]).maybeEmpty(),
-        prompt: MaybeEmpty(map[meaningFieldName]).maybeEmpty(),
+        meaning: MaybeEmpty(map[vocabMeaningFieldName]).maybeEmpty(),
+        prompt: MaybeEmpty(map[vocabPromptFieldName]).maybeEmpty(),
         vocabCategory:
-            MaybeEmpty(map[meaningFieldName]).maybeEmpty().toVocabCategory(),
-        vocabId: MaybeEmpty(map[meaningFieldName]).maybeEmpty(),
-        vocabImgRrl: map[meaningFieldName],
+            MaybeEmpty(map[vocabCategoryFieldName]).maybeEmpty().toVocabCategory(),
+        vocabId: MaybeEmpty(map[vocabIdFieldName]).maybeEmpty(),
+        vocabImgRrl: map[vocabImageUrlFieldName],
       );
 }
