@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-import '../../models/auth_user.dart';
+import '../../domain/models/auth_user.dart';
 
 abstract class AuthProvider {
   Future<AuthUser?> get currentUser;
