@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../common/extensions/string/maybe_empty.dart';
+import '../../common/extensions/int/maybe_zero.dart';
 import 'package:my_english_story/common/constants/firestore_fieldnames/study_page_firestore_fieldname.dart';
 import 'package:my_english_story/domain/models/vocab.dart';
 
@@ -23,10 +25,10 @@ class StudyPage {
       QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
     return StudyPage(
       docId: snapshot.id,
-      pageDescription: snapshot.data()[pageDescriptionFieldName].maybeEmpty(),
+      pageDescription: MaybeEmpty(snapshot.data()[pageDescriptionFieldName]).maybeEmpty(),
       pageImgUrl: snapshot.data()[pageImgUrlFieldName],
-      pageOrder: snapshot.data()[pageOrderFieldName].maybeZero(),
-      prompt: snapshot.data()[storyPagePromptFieldName].maybeEmpty(),
+      pageOrder: MaybeZero(snapshot.data()[pageOrderFieldName]).maybeZero(),
+      prompt: MaybeEmpty(snapshot.data()[storyPagePromptFieldName]).maybeEmpty(),
       vocabList: snapshot.data()["vocab"] is Iterable
           ? List.from(snapshot.data()["vocab"])
               .map((element) => Vocab.fromMap(element))

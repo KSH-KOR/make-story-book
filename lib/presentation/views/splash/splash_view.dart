@@ -31,9 +31,7 @@ class _SplashViewState extends State<SplashView> {
             if (snapshot.hasData) {
               return FutureBuilder(
                 future: Future.wait([
-                  Firebase.initializeApp(
-                    options: DefaultFirebaseOptions.currentPlatform,
-                  ),
+                  
                 ]),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {

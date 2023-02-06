@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_english_story/domain/models/story_book.dart';
 import 'package:my_english_story/domain/models/study_page.dart';
@@ -20,6 +22,12 @@ class FirebaseStoryBookProvider extends StoryBookProvider {
           .map(((event) => event.docs.map(
                 (snapshot) => StoryBook.fromSnapshot(snapshot),
               )));
+
+  Future<void> test() async {
+    final doc =
+        await _storyBookCollection.where(levelFieldName, isEqualTo: 1).get();
+    log(doc.docs.first.data()[storyBookIdFieldName]);
+  }
 
   @override
   Stream<Iterable<StudyPage>> getStudyPagesByPageOrder(

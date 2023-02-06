@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import '../../common/extensions/string/maybe_empty.dart';
+import '../../common/extensions/int/maybe_zero.dart';
 import '../../common/constants/firestore_fieldnames/story_book_firestore_fieldname.dart';
 
 class StoryBook {
@@ -24,10 +25,10 @@ class StoryBook {
       StoryBook(
         docId: snapshot.id,
         bookCoverImgUrl: snapshot.data()[bookCoverImgUrlFieldName],
-        bookTitle: snapshot.data()[bookTitleFieldName].maybeEmpty(),
+        bookTitle: MaybeEmpty(snapshot.data()[bookTitleFieldName]).maybeEmpty(),
         createdTimestamp:
             snapshot.data()[createdTimestampFieldName] as Timestamp,
-        level: snapshot.data()[levelFieldName].maybeZero(),
-        storyBookId: snapshot.data()[storyBookIdFieldName].maybeEmpty(),
+        level: MaybeZero(snapshot.data()[levelFieldName]).maybeZero(),
+        storyBookId: MaybeEmpty(snapshot.data()[storyBookIdFieldName]).maybeEmpty(),
       );
 }

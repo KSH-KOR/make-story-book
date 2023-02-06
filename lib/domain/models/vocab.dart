@@ -2,7 +2,8 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_english_story/common/constants/firestore_fieldnames/vocab_firestore_fieldname.dart';
-
+import '../../common/extensions/string/maybe_empty.dart';
+import '../../common/extensions/string/to_enum.dart';
 import '../../common/enums/vocab_category.dart';
 
 class Vocab {
@@ -25,11 +26,11 @@ class Vocab {
   factory Vocab.fromSnapshot(
           QueryDocumentSnapshot<Map<String, dynamic>> snapshot) =>
       Vocab(
-        meaning: snapshot.data()[meaningFieldName].maybeEmpty(),
-        prompt: snapshot.data()[meaningFieldName].maybeEmpty(),
+        meaning: MaybeEmpty(snapshot.data()[meaningFieldName]).maybeEmpty(),
+        prompt: MaybeEmpty(snapshot.data()[meaningFieldName]).maybeEmpty(),
         vocabCategory:
-            snapshot.data()[meaningFieldName].maybeEmpty().toVocabCategory(),
-        vocabId: snapshot.data()[meaningFieldName].maybeEmpty(),
+            MaybeEmpty(snapshot.data()[meaningFieldName]).maybeEmpty().toVocabCategory(),
+        vocabId: MaybeEmpty(snapshot.data()[meaningFieldName]).maybeEmpty(),
         vocabImgRrl: snapshot.data()[meaningFieldName],
         docId: snapshot.id,
       );
@@ -37,11 +38,11 @@ class Vocab {
   factory Vocab.fromMap(
           Map<String, dynamic> map) =>
       Vocab(
-        meaning: map[meaningFieldName].maybeEmpty(),
-        prompt: map[meaningFieldName].maybeEmpty(),
+        meaning: MaybeEmpty(map[meaningFieldName]).maybeEmpty(),
+        prompt: MaybeEmpty(map[meaningFieldName]).maybeEmpty(),
         vocabCategory:
-            map[meaningFieldName].maybeEmpty().toVocabCategory(),
-        vocabId: map[meaningFieldName].maybeEmpty(),
+            MaybeEmpty(map[meaningFieldName]).maybeEmpty().toVocabCategory(),
+        vocabId: MaybeEmpty(map[meaningFieldName]).maybeEmpty(),
         vocabImgRrl: map[meaningFieldName],
       );
 }
