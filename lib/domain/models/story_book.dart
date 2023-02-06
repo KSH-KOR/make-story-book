@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'story_book_constant.dart';
+import '../../common/constants/firestore_fieldnames/story_book_firestore_fieldname.dart';
 
 class StoryBook {
   final String bookTitle;

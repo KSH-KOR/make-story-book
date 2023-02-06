@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_english_story/service/story_book/story_page_constant.dart';
+import 'package:my_english_story/common/constants/firestore_fieldnames/study_page_firestore_fieldname.dart';
 
 class StudyPage {
   final String pageDescription;

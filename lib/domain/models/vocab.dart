@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_english_story/service/vocab/vocab_constant.dart';
+import 'package:my_english_story/common/constants/firestore_fieldnames/vocab_firestore_fieldname.dart';
 
 import '../../common/enums/vocab_category.dart';
 
