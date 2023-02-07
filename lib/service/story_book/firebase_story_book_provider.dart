@@ -1,14 +1,16 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_english_story/common/constants/firestore_fieldnames/quiz_firestore_fieldname.dart';
 import 'package:my_english_story/domain/models/story_book.dart';
 import 'package:my_english_story/domain/models/study_page.dart';
 import 'package:my_english_story/service/story_book/story_book_provider.dart';
 
 import '../../common/constants/firestore_fieldnames/story_book_firestore_fieldname.dart';
 import '../../common/constants/firestore_fieldnames/study_page_firestore_fieldname.dart';
+import '../../domain/models/quiz.dart';
 
-class FirebaseStoryBookProvider extends StoryBookProvider {
+class FirebaseStoryBookProvider implements StoryBookProvider {
   final _storyBookCollection =
       FirebaseFirestore.instance.collection(storyBookCollectionName);
   
@@ -44,6 +46,15 @@ class FirebaseStoryBookProvider extends StoryBookProvider {
           .map(((event) => event.docs.map(
                 (snapshot) => StudyPage.fromSnapshot(snapshot),
               )));
+
+  @override
+  Stream<Iterable<Quiz>> getQuizPagesByPageOrder({required String docId}) =>
+    _getQuizCollection(docId: docId).orderBy(quizOrderFieldName)
+          .snapshots()
+          .map(((event) => event.docs.map(
+                (snapshot) => Quiz.fromSnapshot(snapshot),
+              )));
+
 
   
 }

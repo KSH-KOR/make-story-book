@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../resources/styles_manager.dart';
 
-Future<dynamic> loadingDialog(BuildContext context) {
+Future<dynamic> loadingDialog(BuildContext context, {String msg = 'Loading...'}) {
     return showDialog(
       // The user CANNOT close this dialog  by pressing outsite it
       barrierDismissible: false,
@@ -26,7 +26,7 @@ Future<dynamic> loadingDialog(BuildContext context) {
                   ),
                   const SizedBox(height: 29),
                   // Some text
-                  Text('Loading...', style: getLightStyle(color: ColorManager.point,))
+                  Text(msg, style: getLightStyle(color: ColorManager.point,))
                 ],
               ),
             ),
