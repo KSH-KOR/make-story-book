@@ -97,4 +97,25 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
     final studyPageDocSnapshot = await studyPageRef.get();
     return StudyPage.fromDocSnapshot(studyPageDocSnapshot);  
   }
+
+  Future<Quiz> createNewQuizPage({
+    required String answer,
+    required String prompt,
+    required String question,
+    required String? quizImgUrl,
+    required int quizOrder,
+    required String storyBookDocId,
+  }) async {
+    final String quizId = const Uuid().v4();
+    final quizRef = await _getQuizCollection(docId: storyBookDocId).add({
+      quizAnswerFieldName: answer,
+      quizPromptFieldName: prompt,
+      quizQuestionFieldName: question,
+      quizImgUrlFieldName: quizImgUrl,
+      quizOrderFieldName: quizOrder,
+      quizIdFieldName: quizId,
+    });
+    final quizDocSnapshot = await quizRef.get();
+    return Quiz.fromDocSnapshot(quizDocSnapshot);  
+  }
 }

@@ -42,9 +42,9 @@ class StudyPage {
 
   factory StudyPage.fromDocSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
-        if(!snapshot.exists){
-          throw Exception();
-        }
+        if (!snapshot.exists || snapshot.data() == null) {
+      throw Exception();
+    }
         final Map snapshotData = snapshot.data()!;
     return StudyPage(
       docId: snapshot.id,
