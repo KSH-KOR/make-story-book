@@ -5,6 +5,7 @@ import 'package:my_english_story/common/constants/firestore_fieldnames/quiz_fire
 import 'package:my_english_story/domain/models/story_book.dart';
 import 'package:my_english_story/domain/models/study_page.dart';
 import 'package:my_english_story/service/story_book/story_book_provider.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../common/constants/firestore_fieldnames/story_book_firestore_fieldname.dart';
 import '../../common/constants/firestore_fieldnames/study_page_firestore_fieldname.dart';
@@ -56,5 +57,21 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
               )));
 
 
-  
+  Future<StoryBook> createNewStoryBook({
+    required String bookTitle,
+    required int level,
+    required String bookCoverImgUrl,
+  }) async {
+    final FieldValue createdTimestamp = FieldValue.serverTimestamp();
+    final String storyBookId = const Uuid().v4();
+    final storyBookRef = await _storyBookCollection.add({
+      bookTitleFieldName: bookTitle,
+      levelFieldName: level,
+      storyBookIdFieldName: storyBookId,
+      bookCoverImgUrlFieldName: bookCoverImgUrl,
+      createdTimestampFieldName: createdTimestamp,
+    });
+    final storyBookDocSnapshot = await storyBookRef.get();
+    return StoryBook.fromDocSnapshot(storyBookDocSnapshot);  
+  }
 }

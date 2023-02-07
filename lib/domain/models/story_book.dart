@@ -31,4 +31,21 @@ class StoryBook {
         level: MaybeZero(snapshot.data()[levelFieldName]).maybeZero(),
         storyBookId: MaybeEmpty(snapshot.data()[storyBookIdFieldName]).maybeEmpty(),
       );
+
+  factory StoryBook.fromDocSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+        if(!snapshot.exists){
+          throw Exception();
+        }
+    return StoryBook(
+      docId: snapshot.id,
+      bookCoverImgUrl: snapshot.data()![bookCoverImgUrlFieldName],
+      bookTitle: MaybeEmpty(snapshot.data()![bookTitleFieldName]).maybeEmpty(),
+      createdTimestamp:
+          snapshot.data()![createdTimestampFieldName] as Timestamp,
+      level: MaybeZero(snapshot.data()![levelFieldName]).maybeZero(),
+      storyBookId:
+          MaybeEmpty(snapshot.data()![storyBookIdFieldName]).maybeEmpty(),
+    );
+  }
 }
