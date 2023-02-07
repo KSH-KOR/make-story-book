@@ -4,12 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_english_story/common/constants/firestore_fieldnames/quiz_firestore_fieldname.dart';
 import 'package:my_english_story/domain/models/story_book.dart';
 import 'package:my_english_story/domain/models/study_page.dart';
+import 'package:my_english_story/domain/models/word_card.dart';
 import 'package:my_english_story/service/story_book/story_book_provider.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../common/constants/firestore_fieldnames/story_book_firestore_fieldname.dart';
 import '../../common/constants/firestore_fieldnames/study_page_firestore_fieldname.dart';
 import '../../domain/models/quiz.dart';
+import '../../domain/models/vocab.dart';
 
 class FirebaseStoryBookProvider implements StoryBookProvider {
   final _storyBookCollection =
@@ -73,5 +75,26 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
     });
     final storyBookDocSnapshot = await storyBookRef.get();
     return StoryBook.fromDocSnapshot(storyBookDocSnapshot);  
+  }
+
+  Future<StudyPage> createNewStudyPage({
+    required String pageDescription,
+    required String pageImgUrl,
+    required int pageOrder,
+    required String prompt,
+    required String storyBookDocId,
+    required List<Vocab> vocabList,
+  }) async {
+    final String studyPageId = const Uuid().v4();
+    final studyPageRef = await _getStudyCollection(docId: storyBookDocId).add({
+      pageDescriptionFieldName: pageDescription,
+      pageImgUrlFieldName: pageImgUrl,
+      pageOrderFieldName: pageOrder,
+      promptFieldName: prompt,
+      vocabFieldName: vocabList,
+      studyPageIdFieldName: studyPageId,
+    });
+    final studyPageDocSnapshot = await studyPageRef.get();
+    return StudyPage.fromDocSnapshot(studyPageDocSnapshot);  
   }
 }
