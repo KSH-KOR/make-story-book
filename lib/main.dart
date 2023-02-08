@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_english_story/presentation/resources/routes_manager.dart';
+import 'package:my_english_story/presentation/views/dev/create_data_into_firebase.dart';
 import 'package:my_english_story/presentation/views/home/homepage_view.dart';
 import 'package:my_english_story/presentation/views/splash/splash_view.dart';
 
@@ -18,6 +19,6 @@ Future<void> main() async {
       primarySwatch: Colors.blue,
     ),
     initialRoute: Routes.splashRoute,
-    home: const HomepageView(),
+    home: const CreateDataIntoFirebaseView()
   ));
 }

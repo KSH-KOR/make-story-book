@@ -17,11 +17,11 @@ class StorageService implements StorageProvider{
 
   @override
   Future<UploadTask?> getUploadTask({required String path, required String fileName, String? filePathFromLocalDevice, File? targetFile}) =>
-    getUploadTask(path: path, fileName: fileName, filePathFromLocalDevice: filePathFromLocalDevice, targetFile: targetFile);
+    provider.getUploadTask(path: path, fileName: fileName, filePathFromLocalDevice: filePathFromLocalDevice, targetFile: targetFile);
 
   @override
   Future<void> showLoadingDialog({required UploadTask uploadTask, BuildContext? context, bool shouldShowLoadingDialog = true}) =>
-    showLoadingDialog(uploadTask: uploadTask, context: context, shouldShowLoadingDialog: shouldShowLoadingDialog);
+    provider.showLoadingDialog(uploadTask: uploadTask, context: context, shouldShowLoadingDialog: shouldShowLoadingDialog);
 
   Future<String?> uploadFileToFirebaseStorage({required String path, required String fileName, String? filePathFromLocalDevice, File? targetFile, BuildContext? context, bool shouldShowLoadingDialog = true}) async {
     try{

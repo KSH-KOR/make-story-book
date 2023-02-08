@@ -23,6 +23,16 @@ class Vocab {
     this.docId,
   });
 
+  Map<String, dynamic> toMap(){
+    return {
+      vocabCategoryFieldName: vocabCategory,
+      vocabMeaningFieldName: meaning,
+      vocabPromptFieldName: prompt,
+      vocabIdFieldName: vocabId,
+      vocabImageUrlFieldName:  vocabImgRrl,
+    };
+  }
+
   factory Vocab.fromSnapshot(
           QueryDocumentSnapshot<Map<String, dynamic>> snapshot) =>
       Vocab(

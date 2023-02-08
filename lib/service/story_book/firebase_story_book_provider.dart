@@ -59,13 +59,15 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
               )));
 
 
+  @override
   Future<StoryBook> createNewStoryBook({
     required String bookTitle,
     required int level,
     required String bookCoverImgUrl,
+    String? storyBookId,
   }) async {
     final FieldValue createdTimestamp = FieldValue.serverTimestamp();
-    final String storyBookId = const Uuid().v4();
+    storyBookId ?? const Uuid().v4();
     final storyBookRef = await _storyBookCollection.add({
       bookTitleFieldName: bookTitle,
       levelFieldName: level,
@@ -77,6 +79,7 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
     return StoryBook.fromDocSnapshot(storyBookDocSnapshot);  
   }
 
+  @override
   Future<StudyPage> createNewStudyPage({
     required String pageDescription,
     required String pageImgUrl,
@@ -84,20 +87,23 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
     required String prompt,
     required String storyBookDocId,
     required List<Vocab> vocabList,
+    String? studyPageId,
   }) async {
-    final String studyPageId = const Uuid().v4();
+    studyPageId ?? const Uuid().v4();
+    final vocabListAsMap = vocabList.map((vocab) => vocab.toMap()).toList();
     final studyPageRef = await _getStudyCollection(docId: storyBookDocId).add({
       pageDescriptionFieldName: pageDescription,
       pageImgUrlFieldName: pageImgUrl,
       pageOrderFieldName: pageOrder,
       promptFieldName: prompt,
-      vocabFieldName: vocabList,
+      vocabFieldName: vocabListAsMap,
       studyPageIdFieldName: studyPageId,
     });
     final studyPageDocSnapshot = await studyPageRef.get();
     return StudyPage.fromDocSnapshot(studyPageDocSnapshot);  
   }
 
+  @override
   Future<Quiz> createNewQuizPage({
     required String answer,
     required String prompt,
@@ -105,8 +111,9 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
     required String? quizImgUrl,
     required int quizOrder,
     required String storyBookDocId,
+    String? quizId,
   }) async {
-    final String quizId = const Uuid().v4();
+    quizId ?? const Uuid().v4();
     final quizRef = await _getQuizCollection(docId: storyBookDocId).add({
       quizAnswerFieldName: answer,
       quizPromptFieldName: prompt,

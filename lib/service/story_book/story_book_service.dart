@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_english_story/domain/models/study_page.dart';
 import 'package:my_english_story/domain/models/story_book.dart';
 import 'package:my_english_story/domain/models/quiz.dart';
+import 'package:my_english_story/domain/models/vocab.dart';
 import 'package:my_english_story/service/story_book/firebase_story_book_provider.dart';
 import '../../common/enums/vocab_category.dart';
 import '../../common/extensions/string/split_containing_patterns.dart';
@@ -58,5 +59,17 @@ class StoryBookService implements StoryBookProvider{
   Stream<Iterable<StoryBook>> getStoryBooksByLevel({int level = 1}) => provider.getStoryBooksByLevel(level: level);
 
   @override
-  Stream<Iterable<StudyPage>> getStudyPagesByPageOrder({required String docId}) => provider.getStudyPagesByPageOrder(docId: docId);  
+  Stream<Iterable<StudyPage>> getStudyPagesByPageOrder({required String docId}) => provider.getStudyPagesByPageOrder(docId: docId);
+
+  @override
+  Future<Quiz> createNewQuizPage({required String answer, required String prompt, required String question, required String? quizImgUrl, required int quizOrder, required String storyBookDocId, String? quizId}) =>
+    provider.createNewQuizPage(answer: answer, prompt: prompt, question: question, quizImgUrl: quizImgUrl, quizOrder: quizOrder, storyBookDocId: storyBookDocId, quizId: quizId);
+
+  @override
+  Future<StoryBook> createNewStoryBook({required String bookTitle, required int level, required String bookCoverImgUrl, String? storyBookId}) =>
+    provider.createNewStoryBook(bookTitle: bookTitle, level: level, bookCoverImgUrl: bookCoverImgUrl, storyBookId: storyBookId);
+
+  @override
+  Future<StudyPage> createNewStudyPage({required String pageDescription, required String pageImgUrl, required int pageOrder, required String prompt, required String storyBookDocId, required List<Vocab> vocabList, String? studyPageId}) =>
+    provider.createNewStudyPage(pageDescription: pageDescription, pageImgUrl: pageImgUrl, pageOrder: pageOrder, prompt: prompt, storyBookDocId: storyBookDocId, vocabList: vocabList, studyPageId: studyPageId);
 }
