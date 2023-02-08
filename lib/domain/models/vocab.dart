@@ -25,7 +25,7 @@ class Vocab {
 
   Map<String, dynamic> toMap(){
     return {
-      vocabCategoryFieldName: vocabCategory,
+      vocabCategoryFieldName: vocabCategory.toString(),
       vocabMeaningFieldName: meaning,
       vocabPromptFieldName: prompt,
       vocabIdFieldName: vocabId,

@@ -43,7 +43,7 @@ class SubmitButtonStudyPage extends StatelessWidget {
                   pageOrder: DevDataProvider().selectedPageOrder! + 1,
                   prompt: DevDataProvider().pagePromptText!,
                   storyBookDocId: DevDataProvider().storyBookDocId!,
-                  vocabList: [],
+                  vocabList: DevDataProvider().vocabList,
                 );
                 DevDataProvider().vocabList.clear();
                 log("added succesfully!");

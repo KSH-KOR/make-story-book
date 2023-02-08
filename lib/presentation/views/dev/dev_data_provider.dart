@@ -13,7 +13,6 @@ class DevDataProvider{
   String? storyBookDocId;
 
   String? studyPageId;
-
   String? pageDescriptionText;
   String? pagePromptText;
 
@@ -29,5 +28,19 @@ class DevDataProvider{
   String? vocabMeaning;
   String? vocabPrompt;
 
-  final List<Vocab?> vocabList = [];
+  final List<Vocab> vocabList = [];
+
+  void clearVocabInputs(){
+    selectedVocabCategory = null;
+    vocabImagePath = null;
+    vocabMeaning = null;
+    vocabPrompt = null;
+  }
+  void clearStudyPageInputs(){
+    pageDescriptionText = null;
+    pagePromptText = null;
+    studyPageId = null;
+    selectedPageOrder = null;
+    imagePath = null;
+  }
 }

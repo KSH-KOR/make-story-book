@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_english_story/common/constants/firestore_fieldnames/quiz_firestore_fieldname.dart';
+import 'package:my_english_story/common/constants/firestore_fieldnames/vocab_firestore_fieldname.dart';
 import 'package:my_english_story/domain/models/story_book.dart';
 import 'package:my_english_story/domain/models/study_page.dart';
 import 'package:my_english_story/domain/models/word_card.dart';

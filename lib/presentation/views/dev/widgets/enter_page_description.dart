@@ -52,7 +52,7 @@ class _EnterPageDesAndPromptState extends State<EnterPageDesAndPrompt> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text("Enter vocab prompt"),
+            const Text("Enter page prompt"),
             TextField(
               controller: _pagePromptTextEditingController,
               onChanged: (value) {

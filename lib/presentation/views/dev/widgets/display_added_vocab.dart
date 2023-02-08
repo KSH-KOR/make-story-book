@@ -28,7 +28,7 @@ class _DisplayAddedVocabState extends State<DisplayAddedVocab> {
           shrinkWrap: true,
           itemCount: DevDataProvider().vocabList.length,
           itemBuilder: (context, index) {
-            return Text(DevDataProvider().vocabList[index]!.meaning);
+            return Text(DevDataProvider().vocabList[index].meaning);
           },
         ),
       ],
