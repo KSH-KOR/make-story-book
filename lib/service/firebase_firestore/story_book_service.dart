@@ -69,7 +69,6 @@ class StoryBookService implements StoryBookProvider {
 
   Future<Iterable<StoryBook>> getStoryBooksByLevelAsList({int level = 1}) async => await getStoryBooksByLevel(level: level).first;
 
-
   @override
   Stream<Iterable<StudyPage>> getStudyPagesByPageOrder(
           {required String docId}) =>
