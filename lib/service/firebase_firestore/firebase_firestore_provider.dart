@@ -2,11 +2,10 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_english_story/common/constants/firestore_fieldnames/quiz_firestore_fieldname.dart';
-import 'package:my_english_story/common/constants/firestore_fieldnames/vocab_firestore_fieldname.dart';
 import 'package:my_english_story/domain/models/story_book.dart';
 import 'package:my_english_story/domain/models/study_page.dart';
 import 'package:my_english_story/domain/models/word_card.dart';
-import 'package:my_english_story/service/story_book/story_book_provider.dart';
+import 'package:my_english_story/service/firebase_firestore/story_book_provider.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../common/constants/firestore_fieldnames/story_book_firestore_fieldname.dart';
@@ -14,9 +13,11 @@ import '../../common/constants/firestore_fieldnames/study_page_firestore_fieldna
 import '../../domain/models/quiz.dart';
 import '../../domain/models/vocab.dart';
 
-class FirebaseStoryBookProvider implements StoryBookProvider {
+class FirebaseFirestoreProvider implements StoryBookProvider {
   final _storyBookCollection =
       FirebaseFirestore.instance.collection(storyBookCollectionName);
+  final _vocabCollection =
+      FirebaseFirestore.instance.collection(vocabCollectionName);
   
   CollectionReference<Map<String, dynamic>> _getStudyCollection(
           {required String docId}) =>
@@ -105,7 +106,17 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
   }
 
   @override
+  Future<Vocab> createNewVocab({
+    required Vocab vocab,
+  }) async {
+    final vocabRef = await _vocabCollection.add(vocab.toMap());
+    final vocabDocSnapshot = await vocabRef.get();
+    return Vocab.fromDocSnapshot(vocabDocSnapshot);  
+  }
+
+  @override
   Future<Quiz> createNewQuizPage({
+    required List<Vocab> vocabAnswer,
     required String answer,
     required String prompt,
     required String question,
@@ -115,7 +126,9 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
     String? quizId,
   }) async {
     quizId ?? const Uuid().v4();
+    final vocabListAsMap = vocabAnswer.map((vocab) => vocab.toMap()).toList();
     final quizRef = await _getQuizCollection(docId: storyBookDocId).add({
+      quizVocabAnswerFieldName: vocabListAsMap,
       quizAnswerFieldName: answer,
       quizPromptFieldName: prompt,
       quizQuestionFieldName: question,

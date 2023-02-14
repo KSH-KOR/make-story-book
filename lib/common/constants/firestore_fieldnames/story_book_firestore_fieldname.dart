@@ -9,3 +9,5 @@ const String bookCoverImgUrlFieldName = 'book-cover-img-url';
 const String storyBookCollectionName = 'story-book-res';
 const String studyCollectionName = 'study';
 const String quizCollectionName = 'quiz';
+
+const String vocabCollectionName = 'vocab-res';

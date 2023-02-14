@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_english_story/presentation/views/dev/dev_data_provider.dart';
 
 import '../../../../service/firebase_storage/storage_service.dart';
-import '../../../../service/story_book/story_book_service.dart';
+import '../../../../service/firebase_firestore/story_book_service.dart';
 import 'get_story_book_path.dart';
 
 class SubmitButtonStoryBook extends StatefulWidget {

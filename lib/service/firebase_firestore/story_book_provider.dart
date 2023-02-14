@@ -24,6 +24,7 @@ abstract class StoryBookProvider{
     String? studyPageId,
   });
   Future<Quiz> createNewQuizPage({
+    required List<Vocab> vocabAnswer,
     required String answer,
     required String prompt,
     required String question,
@@ -31,5 +32,8 @@ abstract class StoryBookProvider{
     required int quizOrder,
     required String storyBookDocId,
     String? quizId,
+  });
+  Future<Vocab> createNewVocab({
+    required Vocab vocab,
   });
 }

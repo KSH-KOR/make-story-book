@@ -28,6 +28,14 @@ class DevDataProvider{
   String? vocabMeaning;
   String? vocabPrompt;
 
+  String? quizPageId;
+
+  final List<List<Vocab>> quizVocabAnswer = [];
+  final List<String> quizAnswers = [];
+  final List<String> quizPrompts = [];
+  final List<String> quizQuestions = [];
+  final List<String> quizImageUrl = [];
+
   final List<Vocab> vocabList = [];
 
   void clearVocabInputs(){
@@ -37,10 +45,22 @@ class DevDataProvider{
     vocabPrompt = null;
   }
   void clearStudyPageInputs(){
+    quizVocabAnswer.add(vocabList);
+    quizAnswers.add(pageDescriptionText ?? "");
+    quizPrompts.add(pagePromptText ?? "");
+    quizImageUrl.add(imagePath ?? "");
+
     pageDescriptionText = null;
     pagePromptText = null;
     studyPageId = null;
     selectedPageOrder = null;
     imagePath = null;
+    vocabList.clear();
+  }
+  void clearQuizPageInputs(){
+    quizVocabAnswer.clear();
+    quizAnswers.clear();
+    quizPrompts.clear();
+    quizQuestions.clear();
   }
 }

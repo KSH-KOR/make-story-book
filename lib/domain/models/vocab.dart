@@ -25,7 +25,7 @@ class Vocab {
 
   Map<String, dynamic> toMap(){
     return {
-      vocabCategoryFieldName: vocabCategory.toString(),
+      vocabCategoryFieldName: vocabCategory.name,
       vocabMeaningFieldName: meaning,
       vocabPromptFieldName: prompt,
       vocabIdFieldName: vocabId,
@@ -44,6 +44,23 @@ class Vocab {
         vocabImgRrl: snapshot.data()[vocabImageUrlFieldName],
         docId: snapshot.id,
       );
+
+  factory Vocab.fromDocSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+        if (!snapshot.exists || snapshot.data() == null) {
+      throw Exception();
+    }
+        final Map snapshotData = snapshot.data()!;
+    return Vocab(
+        meaning: MaybeEmpty(snapshotData[vocabMeaningFieldName]).maybeEmpty(),
+        prompt: MaybeEmpty(snapshotData[vocabPromptFieldName]).maybeEmpty(),
+        vocabCategory:
+            ToVocabCategory(MaybeEmpty(snapshotData[vocabCategoryFieldName]).maybeEmpty()).toVocabCategory(),
+        vocabId: MaybeEmpty(snapshotData[vocabIdFieldName]).maybeEmpty(),
+        vocabImgRrl: snapshotData[vocabImageUrlFieldName],
+        docId: snapshot.id,
+      );
+  }
 
   factory Vocab.fromMap(
           Map<String, dynamic> map) =>
