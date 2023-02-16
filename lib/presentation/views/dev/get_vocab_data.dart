@@ -39,11 +39,12 @@ Future<void> addVocab(BuildContext context) async {
                           DevDataProvider().vocabList.add(Vocab(
                                 vocabCategory: VocabCategory
                                     .values[DevDataProvider().selectedVocabCategory!],
-                                meaning: DevDataProvider().pageDescriptionText!,
-                                prompt: DevDataProvider().pagePromptText!,
+                                meaning: DevDataProvider().vocabMeaning!,
+                                prompt: DevDataProvider().vocabPrompt!,
                                 vocabId: const Uuid().v4(),
                                 vocabImgRrl: DevDataProvider().vocabImagePath,
                               ));
+                          DevDataProvider().clearVocabInputs();
                           Navigator.of(context).pop();
                         },
                         child: const Text("add vocab"),

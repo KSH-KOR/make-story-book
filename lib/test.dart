@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_english_story/service/story_book/firebase_story_book_provider.dart';
+import 'package:my_english_story/service/firebase_firestore/firebase_firestore_provider.dart';
 
 class TestFuture extends StatelessWidget {
   const TestFuture({super.key});
@@ -7,7 +7,7 @@ class TestFuture extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: FirebaseStoryBookProvider().test(),
+      future: FirebaseFirestoreProvider().test(),
       builder: (context, snapshot) {
         switch(snapshot.connectionState){
           case ConnectionState.done:
@@ -25,7 +25,7 @@ class TestStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    final stream = FirebaseStoryBookProvider().getStoryBooksByLevel();
+    final stream = FirebaseFirestoreProvider().getStoryBooksByLevel();
     return StreamBuilder(
       stream: stream,
       builder: (context, snapshot) {
@@ -37,7 +37,7 @@ class TestStream extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      final pages = FirebaseStoryBookProvider().getStudyPagesByPageOrder(docId: snapshot.data!.first.docId);
+                      final pages = FirebaseFirestoreProvider().getStudyPagesByPageOrder(docId: snapshot.data!.first.docId!);
                       return StreamBuilder(
                         stream: pages,
                         builder: (context, snapshot) {

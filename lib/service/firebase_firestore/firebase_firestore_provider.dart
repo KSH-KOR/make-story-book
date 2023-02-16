@@ -5,17 +5,24 @@ import 'package:my_english_story/common/constants/firestore_fieldnames/quiz_fire
 import 'package:my_english_story/domain/models/story_book.dart';
 import 'package:my_english_story/domain/models/study_page.dart';
 import 'package:my_english_story/domain/models/word_card.dart';
-import 'package:my_english_story/service/story_book/story_book_provider.dart';
+import 'package:my_english_story/service/firebase_firestore/story_book_provider.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../common/constants/firestore_fieldnames/auth_firestore_fieldname.dart';
 import '../../common/constants/firestore_fieldnames/story_book_firestore_fieldname.dart';
 import '../../common/constants/firestore_fieldnames/study_page_firestore_fieldname.dart';
+import '../../common/enums/vocab_category.dart';
+import '../../domain/models/auth_user.dart';
 import '../../domain/models/quiz.dart';
 import '../../domain/models/vocab.dart';
 
-class FirebaseStoryBookProvider implements StoryBookProvider {
+class FirebaseFirestoreProvider implements StoryBookProvider {
   final _storyBookCollection =
       FirebaseFirestore.instance.collection(storyBookCollectionName);
+  final _vocabCollection =
+      FirebaseFirestore.instance.collection(vocabCollectionName);
+  final _authCollection =
+         FirebaseFirestore.instance.collection(userCollectionName);
   
   CollectionReference<Map<String, dynamic>> _getStudyCollection(
           {required String docId}) =>
@@ -24,6 +31,14 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
   CollectionReference<Map<String, dynamic>> _getQuizCollection(
       {required String docId}) =>
   _storyBookCollection.doc(docId).collection(quizCollectionName);
+
+  CollectionReference<Map<String, dynamic>> _getMyStoryBookCollection(
+      {required String docId}) =>
+  _authCollection.doc(docId).collection(myStoryBookCollectionName);
+
+  CollectionReference<Map<String, dynamic>> _getMyVocabsCollection(
+      {required String docId}) =>
+  _authCollection.doc(docId).collection(myVocabsCollectionName);
 
   @override
   Stream<Iterable<StoryBook>> getStoryBooksByLevel({int level = 1}) =>
@@ -57,7 +72,6 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
           .map(((event) => event.docs.map(
                 (snapshot) => Quiz.fromSnapshot(snapshot),
               )));
-
 
   @override
   Future<StoryBook> createNewStoryBook({
@@ -104,7 +118,17 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
   }
 
   @override
+  Future<Vocab> createNewVocab({
+    required Vocab vocab,
+  }) async {
+    final vocabRef = await _vocabCollection.add(vocab.toMap());
+    final vocabDocSnapshot = await vocabRef.get();
+    return Vocab.fromDocSnapshot(vocabDocSnapshot);  
+  }
+
+  @override
   Future<Quiz> createNewQuizPage({
+    required List<Vocab> vocabAnswer,
     required String answer,
     required String prompt,
     required String question,
@@ -114,7 +138,9 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
     String? quizId,
   }) async {
     quizId ?? const Uuid().v4();
+    final vocabListAsMap = vocabAnswer.map((vocab) => vocab.toMap()).toList();
     final quizRef = await _getQuizCollection(docId: storyBookDocId).add({
+      quizVocabAnswerFieldName: vocabListAsMap,
       quizAnswerFieldName: answer,
       quizPromptFieldName: prompt,
       quizQuestionFieldName: question,
@@ -124,5 +150,33 @@ class FirebaseStoryBookProvider implements StoryBookProvider {
     });
     final quizDocSnapshot = await quizRef.get();
     return Quiz.fromDocSnapshot(quizDocSnapshot);  
+  }
+
+  @override
+  Future<StoryBook> createMyStoryBook({
+      required List<StudyPage> studyPages,
+      required StoryBook targetStoryBook,
+      required String bookCoverImgUrl,
+      String? storyBookId,
+      required String userId,
+  }) async {
+    final myStoryBookMap = StoryBook.fromStoryBookRes(
+      targetStoryBook: targetStoryBook,
+      newBookCoverImgUrl: bookCoverImgUrl,
+    ).toMap();
+    myStoryBookMap[createdTimestampFieldName] = FieldValue.serverTimestamp();
+    final docRef = await _getMyStoryBookCollection(docId: userId).add(myStoryBookMap);
+    return StoryBook.fromDocSnapshot(await docRef.get());
+  }
+
+  @override
+  Future<Vocab> createMyVocabs({
+      required Vocab vocab,
+      required String userId,
+  }) async {
+    final myVocabMap = vocab.toMap();
+    myVocabMap[createdTimestampFieldName] = FieldValue.serverTimestamp();
+    final docRef = await _getMyVocabsCollection(docId: userId).add(myVocabMap);
+    return Vocab.fromDocSnapshot(await docRef.get());
   }
 }
