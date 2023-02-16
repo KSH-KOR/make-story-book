@@ -6,9 +6,9 @@ import 'package:my_english_story/presentation/utilities/spacing.dart';
 // finish
 
 class NavigationRail extends StatefulWidget {
-  double height;
-  double width;
-  NavigationRail({super.key, required this.height, required this.width});
+  final double height;
+  final double width;
+  const NavigationRail({super.key, required this.height, required this.width});
 
   @override
   State<NavigationRail> createState() => _NavigationRailState();
@@ -29,12 +29,12 @@ class _NavigationRailState extends State<NavigationRail> {
               InkWell(
                   //Library
                   onTap: () {
-                    setState(() {
-                      if (isLibrarySelected == false) {
-                        isLibrarySelected = true;
+                    if (isLibrarySelected == false) {
+                      setState(() {
                         isMyLibrarySelected = false;
-                      }
-                    });
+                        isLibrarySelected = true;
+                      });
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -54,12 +54,12 @@ class _NavigationRailState extends State<NavigationRail> {
               InkWell(
                   // MyLibrary
                   onTap: () {
-                    setState(() {
-                      if (isMyLibrarySelected == false) {
+                    if (isMyLibrarySelected == false) {
+                      setState(() {
                         isMyLibrarySelected = true;
                         isLibrarySelected = false;
-                      }
-                    });
+                      });
+                    }
                   },
                   child: Container(
                     decoration: BoxDecoration(

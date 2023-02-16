@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_english_story/presentation/resources/assets_manager.dart';
 
 class CustomProgressBar extends StatefulWidget {
-  int step;
-  double width;
-  double height;
+  final int step;
+  final double width;
+  final double height;
 
-  CustomProgressBar(
+  const CustomProgressBar(
       {super.key,
       required this.step,
       required this.height,

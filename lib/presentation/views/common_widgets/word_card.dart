@@ -4,11 +4,11 @@ import 'package:my_english_story/presentation/resources/color_manager.dart';
 import 'package:my_english_story/presentation/resources/font_manager.dart';
 
 class WordCard extends StatelessWidget {
-  double width;
-  double height;
-  String imagePath;
-  String word;
-  WordCard(
+  final double width;
+  final double height;
+  final String imagePath;
+  final String word;
+  const WordCard(
       {super.key,
       required this.height,
       required this.width,

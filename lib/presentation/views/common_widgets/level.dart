@@ -4,11 +4,11 @@ import 'package:my_english_story/presentation/utilities/spacing.dart';
 // finish
 
 class Level extends StatelessWidget {
-  double width;
-  double height;
-  int level;
-  Color color;
-  Level(
+  final double width;
+  final double height;
+  final int level;
+  final Color color;
+  const Level(
       {super.key,
       required this.level,
       required this.color,
