@@ -26,6 +26,15 @@ class ImageAssets {
   static const String likeOn = "$IMAGE_PATH/like_on.svg";
   static const String logoColor = "$IMAGE_PATH/logo_color.svg";
   static const String navigateNext = "$IMAGE_PATH/navigate_next.png";
+
+  static const String progressStudy = "$IMAGE_PATH/progress=make_mine.svg";
+  static const String progressQuiz = "$IMAGE_PATH/progress=quiz.svg";
+  static const String progressMakeMine = "$IMAGE_PATH/progress=study.svg";
+
+  static const String library = "$IMAGE_PATH/library.svg";
+  static const String myLibrary = "$IMAGE_PATH/myLibrary.svg";
+
+  ImageAssets(Type appLogo);
 }
 
 class RiveAssets {
