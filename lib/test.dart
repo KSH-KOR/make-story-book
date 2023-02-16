@@ -37,7 +37,7 @@ class TestStream extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      final pages = FirebaseFirestoreProvider().getStudyPagesByPageOrder(docId: snapshot.data!.first.docId);
+                      final pages = FirebaseFirestoreProvider().getStudyPagesByPageOrder(docId: snapshot.data!.first.docId!);
                       return StreamBuilder(
                         stream: pages,
                         builder: (context, snapshot) {

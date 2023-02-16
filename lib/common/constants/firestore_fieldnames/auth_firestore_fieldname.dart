@@ -8,3 +8,5 @@ const String userGroupIdFieldName = 'group-id';
 
 //collection name
 const String userCollectionName = 'user';
+const String myStoryBookCollectionName = 'my-story';
+const String myVocabsCollectionName = 'my-vocabs';

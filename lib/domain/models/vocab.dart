@@ -21,6 +21,7 @@ class Vocab {
     required this.vocabId,
     required this.vocabImgRrl,
     this.docId,
+    
   });
 
   Map<String, dynamic> toMap(){
@@ -43,6 +44,7 @@ class Vocab {
         vocabId: MaybeEmpty(snapshot.data()[vocabIdFieldName]).maybeEmpty(),
         vocabImgRrl: snapshot.data()[vocabImageUrlFieldName],
         docId: snapshot.id,
+        
       );
 
   factory Vocab.fromDocSnapshot(

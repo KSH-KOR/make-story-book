@@ -60,22 +60,27 @@ class StoryBookService implements StoryBookProvider {
   @override
   Stream<Iterable<Quiz>> getQuizPagesByPageOrder({required String docId}) =>
       provider.getQuizPagesByPageOrder(docId: docId);
-  
-  Future<Iterable<Quiz>> getQuizPagesByPageOrderAsList({required String docId}) async => await getQuizPagesByPageOrder(docId: docId).first;
+
+  Future<Iterable<Quiz>> getQuizPagesByPageOrderAsList(
+          {required String docId}) async =>
+      await getQuizPagesByPageOrder(docId: docId).first;
 
   @override
   Stream<Iterable<StoryBook>> getStoryBooksByLevel({int level = 1}) =>
       provider.getStoryBooksByLevel(level: level);
 
-  Future<Iterable<StoryBook>> getStoryBooksByLevelAsList({int level = 1}) async => await getStoryBooksByLevel(level: level).first;
+  Future<Iterable<StoryBook>> getStoryBooksByLevelAsList(
+          {int level = 1}) async =>
+      await getStoryBooksByLevel(level: level).first;
 
   @override
   Stream<Iterable<StudyPage>> getStudyPagesByPageOrder(
           {required String docId}) =>
       provider.getStudyPagesByPageOrder(docId: docId);
 
-  Future<Iterable<StudyPage>> getStudyPagesByPageOrderAsList({required String docId}) async => await getStudyPagesByPageOrder(docId: docId).first;
-
+  Future<Iterable<StudyPage>> getStudyPagesByPageOrderAsList(
+          {required String docId}) async =>
+      await getStudyPagesByPageOrder(docId: docId).first;
 
   @override
   Future<Quiz> createNewQuizPage(
@@ -88,7 +93,7 @@ class StoryBookService implements StoryBookProvider {
           required List<Vocab> vocabAnswer,
           String? quizId}) =>
       provider.createNewQuizPage(
-        vocabAnswer: vocabAnswer,
+          vocabAnswer: vocabAnswer,
           answer: answer,
           prompt: prompt,
           question: question,
@@ -130,4 +135,22 @@ class StoryBookService implements StoryBookProvider {
   @override
   Future<Vocab> createNewVocab({required Vocab vocab}) =>
       provider.createNewVocab(vocab: vocab);
+
+  @override
+  Future<StoryBook> createMyStoryBook(
+          {required List<StudyPage> studyPages,
+          required StoryBook targetStoryBook,
+          required String bookCoverImgUrl,
+          String? storyBookId,
+          required String userId}) =>
+      provider.createMyStoryBook(
+          studyPages: studyPages,
+          targetStoryBook: targetStoryBook,
+          bookCoverImgUrl: bookCoverImgUrl,
+          userId: userId);
+
+  @override
+  Future<Vocab> createMyVocabs(
+          {required Vocab vocab, required String userId}) =>
+      provider.createMyVocabs(vocab: vocab, userId: userId);
 }

@@ -1,5 +1,6 @@
 import 'package:my_english_story/domain/models/story_book.dart';
 
+import '../../domain/models/auth_user.dart';
 import '../../domain/models/quiz.dart';
 import '../../domain/models/study_page.dart';
 import '../../domain/models/vocab.dart';
@@ -35,5 +36,16 @@ abstract class StoryBookProvider{
   });
   Future<Vocab> createNewVocab({
     required Vocab vocab,
+  });
+  Future<StoryBook> createMyStoryBook({
+      required List<StudyPage> studyPages,
+      required StoryBook targetStoryBook,
+      required String bookCoverImgUrl,
+      String? storyBookId,
+      required String userId,
+  });
+  Future<Vocab> createMyVocabs({
+      required Vocab vocab,
+      required String userId,
   });
 }
